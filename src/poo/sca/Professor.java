@@ -12,13 +12,13 @@ public class Professor implements Serializable{
 		this.nome = nome;
 	}
 	public int getMatricula() {
-		return matricula;
+		return this.matricula;
 	}
 	public void setMatricula(int matricula) {
 		this.matricula = matricula;
 	}
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 	public void setNome(String nome) {
 		this.nome = nome;

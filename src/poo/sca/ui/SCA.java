@@ -1,7 +1,6 @@
 package poo.sca.ui;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import poo.sca.Curso;
 import poo.sca.Disciplina;
@@ -86,8 +85,9 @@ public class SCA {
 		Turma t;
 		try {
 			t = facade.getTurma(p, c, n);
-			Util.alert(t.getDisciplinaIterator().toString());
-			
+			if(t!=null){
+				Util.alert(t.toString());
+			}
 		} catch (SCAException e1) {
 			Util.alert(e1.getMessage());
 		} catch (SCAPersistenciaException e2) {
@@ -141,16 +141,24 @@ public class SCA {
 		int codDisciplina = Util.lerInteiro("Digite o código da disciplina");
 		String periodo = Util.lerString("Digite o período da turma:");
 		int numero = Util.lerInteiro("Digite o número da turma:");
-		int codCurso = Util.lerInteiro("Digite o código do curso:");
-		int matProf = Util.lerInteiro("Digite a matrícula do professor:");
 		String horario = Util.lerString("Digite o horário da turma:");
+		
+		int opCurso = Util.lerInteiro("Deseja adicionar curso?\n1-SIM   2-NÃO");
+		int codCurso = -1;
+		if(opCurso == 1){
+			codCurso = Util.lerInteiro("Digite o código do curso:");
+		}
+		
+		int opProf = Util.lerInteiro("Deseja adicionar professor?\n1-SIM   2-NÃO");
+		int matProf = -1;
+		if(opProf == 1){
+			matProf = Util.lerInteiro("Digite a matrícula do professor:");
+		}
+		
 		Turma t;
 		try {
 			t = facade.criarTurma(periodo, codDisciplina, numero, matProf, codCurso, horario);
-			
-			Iterator <Disciplina> d = t.getDisciplinaIterator();
-			Util.alert("Turma adicionada com sucesso!\n"+"Disciplina: "+d.next().getNome()+
-				"\nNumero: "+t.getNumero()+"\nPeriodo: "+t.getPeriodo());
+			Util.alert("Turma adicionada com sucesso!\n"+ t.toString());
 		} catch (SCAException e1) {
 			Util.alert(e1.getMessage());
 		} catch(SCAPersistenciaException e2){
@@ -161,9 +169,7 @@ public class SCA {
 	public void listarTurmas(){
 		try{
 			ArrayList<Turma> turmas = (ArrayList<Turma>) facade.listarTurmas();
-			for(Turma t: turmas){
-				Util.alert(t.toString());
-			}
+			Util.alert(turmas.toString());
 		} catch(SCAPersistenciaException e2){
 			Util.alert(e2.getMessage());
 		}
@@ -172,9 +178,7 @@ public class SCA {
 	public void listarDisciplinas(){
 		try{
 			ArrayList<Disciplina> disciplinas = (ArrayList<Disciplina>) facade.listarDisciplinas();
-			for(Disciplina d: disciplinas){
-				Util.alert(d.toString());
-			}
+			Util.alert(disciplinas.toString());
 		} catch(SCAPersistenciaException e2){
 			Util.alert(e2.getMessage());
 		}
@@ -183,9 +187,7 @@ public class SCA {
 	public void listarCursos(){
 		try{
 			ArrayList<Curso> cursos = (ArrayList<Curso>) facade.listarCursos();
-			for(Curso c: cursos){
-				Util.alert(c.toString());
-			}
+			Util.alert(cursos.toString());
 		} catch(SCAPersistenciaException e2){
 			Util.alert(e2.getMessage());
 		}
@@ -194,9 +196,7 @@ public class SCA {
 	public void listarProfessores(){
 		try{
 			ArrayList<Professor> professores = (ArrayList<Professor>) facade.listarProfessores();
-			for(Professor p: professores){
-				Util.alert(p.toString());
-			}
+			Util.alert(professores.toString());
 		} catch(SCAPersistenciaException e2){
 			Util.alert(e2.getMessage());
 		}

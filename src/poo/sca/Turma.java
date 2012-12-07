@@ -47,7 +47,7 @@ public class Turma implements Serializable{
 	}
 	
 	public String getHorario() {
-		return horario;
+		return this.horario;
 	}
 
 	public void setPeriodo(String periodo) {
@@ -55,7 +55,7 @@ public class Turma implements Serializable{
 	}
 	
 	public String getPeriodo() {
-		return periodo;
+		return this.periodo;
 	}
 
 	public void setNumero(int numero) {
@@ -63,19 +63,39 @@ public class Turma implements Serializable{
 	}
 	
 	public int getNumero() {
-		return numero;
+		return this.numero;
 	}
 	
 	public String toString(){
 		StringBuffer str = new StringBuffer();
-		str.append(">>> Turma\n");
-		str.append("Disciplina: "+this.getDisciplinaIterator()+"\n");
-		str.append("Número: "+this.getNumero()+"\n");
-		str.append("Período: "+this.getPeriodo()+"\n");
-		str.append("Horário: "+this.getHorario()+"\n");
-		str.append("Cursos: "+this.getCursosIterator()+"\n");
-		str.append("Professores: "+this.getProfessoresIterator()+"\n");
+		Iterator<Disciplina> itd = getDisciplinaIterator();
+		Iterator<Curso> itc = getCursosIterator();
+		Iterator<Professor> itp = getProfessoresIterator();
 		
+		str.append(">>> Turma\n");
+		if(itd != null){
+			str.append("Disciplina: ");
+			while(itd.hasNext()){
+				str.append(itd.next().getNome()+"\n");
+			}
+		}
+		str.append("Número: "+getNumero()+"\n");
+		str.append("Período: "+getPeriodo()+"\n");
+		str.append("Horário: "+getHorario()+"\n");
+		
+		if(itc != null){
+			str.append("Cursos: ");
+			while(itc.hasNext()){
+				str.append(itc.next().getNome()+"\n");
+			}
+		}
+		
+		if(itp != null){
+			str.append("Professores: ");
+			while(itp.hasNext()){
+				str.append(itp.next().getNome()+"\n");
+			}
+		}
 		return str.toString();
 	}
 }
