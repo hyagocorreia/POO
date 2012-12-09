@@ -33,12 +33,6 @@ public class SCAFacade{
 	
 	public Turma criarTurma(String periodo, int codDisciplina, int numero,
 			int matProf, int codCurso, String horario) throws SCAException, SCAPersistenciaException{
-		List <Turma> turmas = persistencia.recuperarTurmas();
-		for (int i = 0; i < turmas.size(); i++) {
-			if (turmas.get(i).getNumero() == numero){
-					throw new SCAException("Turma já existe!");
-			}
-		}
 		
 		Turma turma = new Turma(periodo, numero, horario);
 		
@@ -47,11 +41,21 @@ public class SCAFacade{
 		for(Disciplina d: disciplinas){
 			if(d.getCodigo() == codDisciplina){
 				disciplina = d;
-			}else{
-				throw new SCAException("Disciplina não existe!");
 			}
 		}
+		if(disciplina == null){
+			throw new SCAException("Disciplina não existe!");
+		}
+		
 		turma.addDisciplina(disciplina);
+		
+		List <Turma> turmas = persistencia.recuperarTurmas();
+		for (int i = 0; i < turmas.size(); i++) {
+			if (turmas.get(i).getNumero() == numero && turmas.get(i).getPeriodo().equals(periodo)
+					&& turmas.get(i).getDisciplinaIterator().equals(turma)){
+				throw new SCAException("Turma já existe!");
+			}
+		}
 		
 		if(codCurso != -1){
 			List <Curso> cursos = persistencia.recuperarCursos();
@@ -59,9 +63,10 @@ public class SCAFacade{
 			for(Curso c: cursos){
 				if(c.getCodigo() == codCurso){
 					curso = c;
-				}else{
-					throw new SCAException("Curso não existe!");
 				}
+			}
+			if(curso == null){
+				throw new SCAException("Professor não existe!");
 			}
 			turma.addCurso(curso);
 		}
@@ -72,9 +77,10 @@ public class SCAFacade{
 			for(Professor p: professores){
 				if(p.getMatricula() == matProf){
 					professor = p;
-				}else{
-					throw new SCAException("Professor não existe!");
 				}
+			}
+			if(professor == null){
+				throw new SCAException("Professor não existe!");
 			}
 			turma.addProfessor(professor);
 		}
