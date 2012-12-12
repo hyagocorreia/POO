@@ -15,12 +15,16 @@ public class Professor implements Serializable{
 		return this.matricula;
 	}
 	public void setMatricula(int matricula) {
+		if(matricula <= 0 || matricula >= 99999)
+			throw new SCARuntimeException("Matrícula inválida: "+matricula);
 		this.matricula = matricula;
 	}
 	public String getNome() {
 		return this.nome;
 	}
 	public void setNome(String nome) {
+		if(nome == null || nome.equals(""))
+			throw new SCARuntimeException("Nome inválido: '"+nome+"'");
 		this.nome = nome;
 	}
 	public String toString(){

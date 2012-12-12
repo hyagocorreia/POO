@@ -85,9 +85,7 @@ public class SCA {
 		Turma t;
 		try {
 			t = facade.getTurma(p, c, n);
-			if(t!=null){
-				Util.alert(t.toString());
-			}
+			Util.alert(t.toString());
 		} catch (SCAException e1) {
 			Util.alert(e1.getMessage());
 		} catch (SCAPersistenciaException e2) {

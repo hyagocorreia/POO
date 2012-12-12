@@ -15,12 +15,16 @@ public class Disciplina implements Serializable{
 		return this.codigo;
 	}
 	public void setCodigo(int codigo) {
+		if(codigo <= 0 || codigo >= 99999)
+			throw new SCARuntimeException("Código inválido: "+codigo);
 		this.codigo = codigo;
 	}
 	public String getNome() {
 		return this.nome;
 	}
 	public void setNome(String nome) {
+		if(nome == null || nome.equals(""))
+			throw new SCARuntimeException("Nome inválido: '"+nome+"'");
 		this.nome = nome;
 	}
 	public String toString(){

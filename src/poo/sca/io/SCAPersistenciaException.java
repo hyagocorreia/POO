@@ -1,11 +1,21 @@
 package poo.sca.io;
 
-@SuppressWarnings("serial")
 public class SCAPersistenciaException extends Exception {
-	public SCAPersistenciaException(String msg){
-		super(msg);
+	private static final long serialVersionUID = 1L;
+
+	public SCAPersistenciaException() {
 	}
-	public SCAPersistenciaException(String msg, Throwable e){
-		super(msg,e);
+
+	public SCAPersistenciaException(String arg0) {
+		super(arg0);
 	}
+
+	public SCAPersistenciaException(Throwable arg0) {
+		super(arg0);
+	}
+
+	public SCAPersistenciaException(String arg0, Throwable arg1) {
+		super(arg0, arg1);
+	}
+
 }

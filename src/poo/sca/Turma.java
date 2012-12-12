@@ -59,6 +59,8 @@ public class Turma implements Serializable{
 	}
 
 	public void setNumero(int numero) {
+		if(numero <= 0 || numero >= 99999 )
+			throw new SCARuntimeException("Número inválido: '"+ numero);
 		this.numero = numero;
 	}
 	
@@ -76,7 +78,8 @@ public class Turma implements Serializable{
 		if(itd != null){
 			str.append("Disciplina: ");
 			while(itd.hasNext()){
-				str.append(itd.next().getNome()+"\n");
+				Disciplina aux = itd.next();
+				str.append(aux.getNome()+" - "+aux.getCodigo()+"\n");
 			}
 		}
 		str.append("Número: "+getNumero()+"\n");
@@ -86,14 +89,16 @@ public class Turma implements Serializable{
 		if(itc != null){
 			str.append("Cursos: ");
 			while(itc.hasNext()){
-				str.append(itc.next().getNome()+"\n");
+				Curso aux = itc.next();
+				str.append(aux.getNome()+" - "+aux.getCodigo()+"\n");
 			}
 		}
 		
 		if(itp != null){
 			str.append("Professores: ");
 			while(itp.hasNext()){
-				str.append(itp.next().getNome()+"\n");
+				Professor aux = itp.next();
+				str.append(aux.getNome()+" - "+aux.getMatricula()+"\n");
 			}
 		}
 		return str.toString();

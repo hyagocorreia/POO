@@ -57,7 +57,7 @@ public class SCAFacade{
 			}
 		}
 		
-		if(codCurso != -1){
+		if(codCurso > 0){
 			List <Curso> cursos = persistencia.recuperarCursos();
 			Curso curso = null;
 			for(Curso c: cursos){
@@ -71,7 +71,7 @@ public class SCAFacade{
 			turma.addCurso(curso);
 		}
 		
-		if(matProf != -1){
+		if(matProf > 0){
 			List <Professor> professores = persistencia.recuperarProfessores();
 			Professor professor = null;
 			for(Professor p: professores){
@@ -129,6 +129,7 @@ public class SCAFacade{
 			if(d.getCodigo() == codigo || d.getNome().equals(nome))
 				throw new SCAException("Código ou nome já existem!");
 		}
+		System.out.println(getDisciplinasIterator().toString());
 		Disciplina disciplina = new Disciplina(nome,codigo);
 		persistencia.salvar(disciplina);
 		return disciplina;
